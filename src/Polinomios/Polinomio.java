@@ -108,8 +108,12 @@ public class Polinomio {
         LinkedList<Integer> ant = new LinkedList<>();
         for(int i = 0; i < fun.length(); ++i) {
             if(fun.charAt(i) == 'x') {
-                ++i;
-                res.set(fun.charAt(i) - '0', res.get(fun.charAt(i) - '0') + signo);
+                String número = "";
+                while(Character.isDigit(fun.charAt(i + 1))) {
+                    número += fun.charAt(i + 1);
+                    ++i;
+                }
+                res.set(Integer.parseInt(número), res.get(Integer.parseInt(número)) + signo);
             } else if(fun.charAt(i) == '-') {
                 ant.add(-1);
                 signo *= -1;
@@ -157,7 +161,10 @@ public class Polinomio {
             }
             poli += "\u03BB";
             if(i != 1) {
-                poli += exp.get(i);
+                String exponente = Integer.toString(i);
+                for(int j = 0; j < exponente.length(); ++j) {
+                    poli += exp.get(exponente.charAt(j) - '0');
+                }
             }
             pol += poli;
         }
